@@ -23,9 +23,16 @@ public class Company {
     /**
      * Constructor of class Company
      */
+    public Company() {
+        this.clients = new ArrayList<>();
+        this.sellers = new ArrayList<>();
+        this.properties = new ArrayList<>();
+    }
+    
     public Company(ArrayList<User> clients,ArrayList<User> sellers) {
         this.clients = clients;
         this.sellers = sellers;
+        this.properties = new ArrayList<>();
     }
 
     /**
@@ -52,7 +59,7 @@ public class Company {
      * @return This company's properties.
      */
     public List<Property> getProperties() {
-        return null;         // dummy implementation
+        return properties;         // dummy implementation
     }
 
     /**
@@ -71,7 +78,11 @@ public class Company {
      * @return true If the registration succeeds, false otherwise.
      */
     public boolean registerClient(User client) {
-        return true;         // dummy implementation
+        if(client!=null && !clientExists(client)){
+            clients.add(client);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -81,7 +92,11 @@ public class Company {
      * @return true If the registration succeeds, false otherwise.
      */
     public boolean registerSeller(User seller) {
-        return true;         // dummy implementation
+        if(seller!=null && !sellerExists(seller)){
+            sellers.add(seller);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -91,7 +106,11 @@ public class Company {
      * @return true If the registration succeeds, false otherwise.
      */
     public boolean registerProperty(Property property) {
-        return true;         // dummy implementation
+        if(property!=null && !propertyExists(property)){
+            properties.add(property);
+            return true;
+        }
+        return false;         // dummy implementation
     }
 
     /**
@@ -134,6 +153,33 @@ public class Company {
      */
     public String findSellerOfTheYear(int year) {
         return null;         // dummy implementation
+    }
+    
+    public boolean clientExists(User client){
+        for(User c : getClients()){
+            if(c.getName().equals(client.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean sellerExists(User seller){
+        for(User s : getSellers()){
+            if(s.getName().equals(seller.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean propertyExists(Property property){
+        for(Property p : getProperties()){
+            if(p == property){
+                return true;
+            }
+        }
+        return false;
     }
 
 }
